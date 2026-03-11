@@ -8,10 +8,12 @@ availableSeats = 100
 bookings_per_row = [0] * 10
 revenue_per_row = [0] * 10
 
+if not os.path.exists("data"): os.makedirs("data")
 
-seats_file_path = 'C:/Users/hp/Music/PYTHON GATEWAY/theatre/Seats.txt'
-bookingFilePath = 'C:/Users/hp/Music/PYTHON GATEWAY/theatre/SeatBookings.txt'
-collectionFilePath='C:/Users/hp/Music/PYTHON GATEWAY/theatre/Collection.txt'
+
+seats_file_path = 'data/Seats.txt'
+bookingFilePath = 'data/SeatBookings.txt'
+collectionFilePath='data/Collection.txt'
 
 
 def writeDefaultSeats():
@@ -345,11 +347,18 @@ def menu():
             print("⚠️ : Invalid choice.\n")
 
 
-if not os.path.exists(seats_file_path):
-    writeDefaultSeats()
-ticketsList = readSeatsFromFile()
-availableSeats=calcAvailableSeats()
-# verify
-# for row in ticketsList:
-#     print(row)
-menu()
+def main():
+    global ticketsList, availableSeats
+
+    if not os.path.exists(seats_file_path):
+        writeDefaultSeats()
+
+    ticketsList = readSeatsFromFile()
+    availableSeats = calcAvailableSeats()
+
+    menu()
+
+
+if __name__ == "__main__":
+    main()
+
